@@ -1,25 +1,23 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ClinicModule } from './clinics/clinic.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ClinicModule } from './clinics/clinics.module';
 import { PatientsModule } from './patients/patients.module';
 import { PhotosModule } from './photos/photos.module';
-import { ScheduleModule } from './schedule/schedule.module';
 import { SettingsModule } from './settings/settings.module';
-import { ScheduleModule as NestSchedule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'clinic_data.db',
-      autoLoadEntities: true,
+      database: 'clinic.db',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    NestSchedule.forRoot(),
+    ScheduleModule.forRoot(), // ✅ cron job'lar için
     ClinicModule,
     PatientsModule,
     PhotosModule,
-    ScheduleModule,
     SettingsModule,
   ],
 })
