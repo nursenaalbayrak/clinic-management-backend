@@ -6,6 +6,7 @@ import { PhotosModule } from './photos/photos.module';
 import { SettingsModule } from './settings/settings.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ClinicModule } from './clinics/clinic.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { ClinicModule } from './clinics/clinic.module';
     PatientsModule,
     PhotosModule,
     SettingsModule,
-    NotificationsModule, // bildirim servisi için
+    NotificationsModule,
+    ConfigModule.forRoot({ isGlobal: true })// bildirim servisi için
 
   ],
 })
