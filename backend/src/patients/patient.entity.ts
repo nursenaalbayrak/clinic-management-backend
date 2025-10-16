@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne,OneToMany ,CreateDateColumn } from 'typeorm';
 import { Clinic } from 'src/clinics/clinic.entity';
+import { Photo } from 'src/photos/photo.entity';
 
 @Entity()
 export class Patient {
@@ -32,6 +33,9 @@ export class Patient {
 
   @ManyToOne(() => Clinic, (clinic) => clinic.patients, { onDelete: 'CASCADE' })
   clinic: Clinic;
+
+  @OneToMany(() => Photo, (photo) => photo.patient)
+photos: Photo[];
 
   @CreateDateColumn()
   createdAt: Date;

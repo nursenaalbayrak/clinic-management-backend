@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleFeatureModule } from './schedule/schedule.module';
 import { PatientsModule } from './patients/patients.module';
-import { PhotosModule } from './photos/photos.module';
 import { SettingsModule } from './settings/settings.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ClinicModule } from './clinics/clinic.module';
 import { ConfigModule } from '@nestjs/config';
+import { PhotosModule } from './photos/photos.module';
 
 @Module({
   imports: [
