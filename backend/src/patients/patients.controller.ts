@@ -10,6 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { PatientsService } from './patients.service';
+ 
 
 @Controller('patients')
 export class PatientsController {
@@ -39,4 +40,12 @@ export class PatientsController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.patientsService.remove(id);
   }
+
+ 
+
+@Get(':id/details')
+async getPatientDetails(@Param('id') id: number) {
+  return this.patientsService.getPatientDetails(id);
+}
+
 }

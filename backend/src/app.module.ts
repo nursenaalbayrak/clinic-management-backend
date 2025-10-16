@@ -7,6 +7,10 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { ClinicModule } from './clinics/clinic.module';
 import { ConfigModule } from '@nestjs/config';
 import { PhotosModule } from './photos/photos.module';
+import { PhotoPair } from './photo-pairs/photo-pair.entity';
+import { PhotoPairsModule } from './photo-pairs/photo-pairs.module';
+import { Photo } from './photos/photo.entity';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -21,6 +25,8 @@ import { PhotosModule } from './photos/photos.module';
     PatientsModule,
     PhotosModule,
     SettingsModule,
+    PhotoPairsModule,
+    DashboardModule,
     NotificationsModule,
     ConfigModule.forRoot({ isGlobal: true })// bildirim servisi için
 

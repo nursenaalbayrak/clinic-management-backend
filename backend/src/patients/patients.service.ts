@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, ILike } from 'typeorm';
 import { Patient } from './patient.entity';
 import { Clinic } from 'src/clinics/clinic.entity';
+import { join } from 'path';
 
 @Injectable()
 export class PatientsService {
@@ -106,4 +107,34 @@ export class PatientsService {
     baseDate.setMonth(baseDate.getMonth() + monthsToAdd);
     return baseDate.toISOString().split('T')[0];
   }
+async getPatientDetails(id: number) {
+  const patient = await this.patientsRepo.findOne({
+    where: { id },
+    relations: ['clinic', 'photos'], // ilişkiler (clinic + photos)
+  });
+
+  if (!patient) {
+    throw new Error('Hasta bulunamadı');
+  }
+
+  return {
+    id: patient.id,
+    name: patient.name,
+    procedure: patient.procedure,
+    treatmentDate: patient.treatmentDate,
+    price: patient.price,
+    paid: patient.paid,
+    remaining: patient.remaining,
+    clinic: patient.clinic ? patient.clinic.name : null,
+    nextControlDate: patient.nextControlDate,
+    photos: patient.photos?.map((p) => ({
+      id: p.id,
+      path: p.path,
+      description: p.description,
+      uploadedAt: p.createdAt,
+      url: `http://localhost:3000/uploads/${p.path.split('\\').pop()}`,
+    })),
+  };
+}
+
 }
